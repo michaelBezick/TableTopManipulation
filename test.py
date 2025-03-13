@@ -1,6 +1,7 @@
 import numpy as np
 from PIL import Image
 import robosuite as suite
+from point_cloud_generator import PointCloudGenerator
 
 # create environment instance
 env = suite.make(
@@ -15,6 +16,10 @@ env = suite.make(
     camera_widths=128,
 )
 
+breakpoint()
+
+pcg = PointCloudGenerator(env.physics)
+
 # reset the environment
 # breakpoint()
 obs = env.reset()
@@ -23,13 +28,6 @@ for i in range(1):
     obs, reward, done, info = env.step(action)  # take action in the environment
 
     depth_image = obs["agentview_depth"]
-    # Normalize depth to 0-255 for saving
-    depth_image = (depth_image / depth_image.max() * 255).astype(np.uint8)
-
-    depth_image = np.squeeze(depth_image)
-
-    # Save depth image
-    depth_pil = Image.fromarray(depth_image)
-    depth_pil.save(f"depth_frame_{i}.png")
+    # pcd = pcg.depthImageToPointCloud(depth_image)
 
 env.close()
