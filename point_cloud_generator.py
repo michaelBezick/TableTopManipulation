@@ -3,7 +3,6 @@ import torch
 import math
 
 
-from dm_control.suite.walker import Physics
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -148,10 +147,10 @@ class PointCloudGenerator(object):
         values that will not be cropped
     """
 
-    def __init__(self, sim: Physics, min_bound=None, max_bound=None):
+    def __init__(self, env, min_bound=None, max_bound=None):
         super(PointCloudGenerator, self).__init__()
 
-        self.sim = sim
+        self.env = env
 
         self.img_width = 64
         self.img_height = 64
@@ -254,53 +253,4 @@ class PointCloudGenerator(object):
 
 
 if __name__ == "__main__":
-    env = suite.load(domain_name="walker", task_name="walk")
-    physics = env.physics
-    point_cloud_generator = PointCloudGenerator(physics)
-
-    depth1 = physics.render(
-        width=64,
-        height=64,
-        camera_id=0,
-        depth=True,
-    )
-
-    depth2 = physics.render(
-        width=64,
-        height=64,
-        camera_id=1,
-        depth=True,
-    )
-
-    combined_cloud = o3d.geometry.PointCloud()
-
-
-    point_cloud1 = point_cloud_generator.depthImageToPointCloud(depth1,cam_id=0, down_sample_voxel_size=0.03)
-
-    # num_points = point_cloud1.shape[0]
-    # truncate = num_points // 2
-    # point_cloud1 = point_cloud1[:truncate, :]
-
-    print("point cloud 1 points: ", point_cloud1.shape)
-    pcd1 = o3d.geometry.PointCloud()
-    pcd1.points = o3d.utility.Vector3dVector(point_cloud1)
-    point_cloud_generator.save_point_cloud(pcd1, is_point_cloud=True, output_file="view1.ply")
-
-    point_cloud2 = point_cloud_generator.depthImageToPointCloud(depth2,cam_id=1, down_sample_voxel_size=0.03)
-
-    # num_points = point_cloud2.shape[0]
-    # truncate = num_points // 2
-    #
-    # point_cloud2 = point_cloud2[:truncate, :]
-
-    print("point cloud 2 points: ", point_cloud2.shape)
-    pcd2 = o3d.geometry.PointCloud()
-    pcd2.points = o3d.utility.Vector3dVector(point_cloud2)
-    point_cloud_generator.save_point_cloud(pcd2, is_point_cloud=True, output_file="view2.ply")
-
-    exit()
-
-    combined_cloud += pcd1
-    combined_cloud += pcd2
-
-    point_cloud_generator.save_point_cloud(combined_cloud, is_point_cloud=True, output_file="combined.ply")
+    pass
