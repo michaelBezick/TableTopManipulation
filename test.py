@@ -2,9 +2,13 @@ import numpy as np
 from PIL import Image
 import robosuite as suite
 from point_cloud_generator import PointCloudGenerator
+from robosuite.models.arenas import Arena
+from robosuite.models.robots import RobotModel
+from robosuite.models.tasks import MujocoXML
 import os
 
 custom_xml_path = os.path.abspath("custom_xml_path")
+custom_mujoco_model = MujocoXML(custom_xml_path)
 
 env = suite.make(
     env_name="Lift",  # try with other tasks like "Stack" and "Door"
@@ -16,8 +20,8 @@ env = suite.make(
     camera_depths=True,
     camera_heights=128,
     camera_widths=128,
-    model=custom_xml_path,
 )
+env.model = custom_mujoco_model
 
 breakpoint()
 
