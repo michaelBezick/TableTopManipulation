@@ -9,7 +9,8 @@ env = suite.make(
     has_renderer=False,
     has_offscreen_renderer=True,
     use_camera_obs=True,
-    camera_names=['frontview', 'birdview', 'agentview', 'sideview', 'robot0_robotview', 'robot0_eye_in_hand'],
+    # camera_names=['frontview', 'birdview', 'agentview', 'sideview', 'robot0_robotview', 'robot0_eye_in_hand'],
+    camera_names=['frontview', 'frontview1', 'frontview2'],
     camera_depths=True,
     camera_heights=128,
     camera_widths=128,
@@ -22,7 +23,8 @@ breakpoint()
 # reset the environment
 # breakpoint()
 
-camera_names = ['frontview', 'birdview', 'agentview', 'sideview', 'robot0_robotview', 'robot0_eye_in_hand']
+# camera_names = ['frontview', 'birdview', 'agentview', 'sideview', 'robot0_robotview', 'robot0_eye_in_hand']
+camera_names = ['frontview', 'frontview1', 'frontview2']
 
 obs = env.reset()
 for i in range(1):
