@@ -16,7 +16,6 @@ env = suite.make(
     camera_widths=128,
 )
 
-breakpoint()
 
 # pcg = PointCloudGenerator(env.physics)
 
