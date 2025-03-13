@@ -10,8 +10,8 @@ env = suite.make(
     has_offscreen_renderer=True,
     use_camera_obs=True,
     camera_names="agentview",
-    camera_heights=256,
-    camera_widths=256,
+    camera_heights=1024,
+    camera_widths=1024,
 )
 
 # reset the environment
